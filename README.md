@@ -88,17 +88,16 @@ AuraStore is a fully responsive E-Commerce Product Store built using **HTML5, CS
 
 ### Desktop Product Grid
 
-![Desktop View](desktop.png)
+![Desktop View](desktop.PNG)
 
 ### Mobile Responsive View
 
-![Mobile View](mobile1.png)
+![Mobile View](mobileView.PNG)
 
-![Mobile View](mobile2.png)
 
 ### Cart Drawer Open
 
-![Cart Drawer](CART.png)
+![Cart Drawer](cart drawer.PNG)
 
 ---
 
