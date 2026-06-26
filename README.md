@@ -97,7 +97,7 @@ AuraStore is a fully responsive E-Commerce Product Store built using **HTML5, CS
 
 ### Cart Drawer Open
 
-![Cart Drawer](cart drawer.PNG)
+![Cart Drawer](cartdrawer.PNG)
 
 ---
 
