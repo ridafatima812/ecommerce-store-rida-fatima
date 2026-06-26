@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuraStore — E-Commerce Premium Shop</title>
+  
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  
+  <!-- JS Scripts (Immediate theme setup in ui.js to prevent flash, others deferred) -->
+  <script src="js/ui.js"></script>
+  <script src="js/api.js" defer></script>
+  <script src="js/products.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/filters.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header-content">
+      <a href="#" class="logo" id="logo-btn">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span>AuraStore</span>
+      </a>
+      
+      <!-- NAVIGATION LINKS -->
+      <nav class="nav" id="main-nav">
+        <a href="#" class="nav-link active" id="nav-shop">
+          <i class="fa-solid fa-store"></i> Shop
+        </a>
+        <a href="#" class="nav-link" id="nav-wishlist">
+          <i class="fa-solid fa-heart"></i> Wishlist
+        </a>
+      </nav>
+      
+      <!-- ACTIONS -->
+      <div class="header-actions">
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle Theme">
+          <i class="fa-solid fa-sun" id="theme-icon"></i>
+        </button>
+        
+        <!-- Cart Trigger -->
+        <button class="cart-btn" id="cart-drawer-btn" aria-label="View Shopping Cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-badge" id="cart-badge-count">0</span>
+        </button>
+        
+        <!-- Mobile Hamburger -->
+        <button class="hamburger" id="mobile-menu-btn" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN SECTION -->
+  <main class="main container">
+    
+    <!-- SHOP PAGE CONTENT -->
+    <div id="shop-view">
+      <div class="section-title">
+        <i class="fa-solid fa-sparkles"></i>
+        <h2>Discover Products</h2>
+      </div>
+
+      <!-- Filters, Search & Sort Panel -->
+      <section class="filters">
+        <div class="search-bar">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="search-input" placeholder="Search products by title...">
+        </div>
+        
+        <div class="categories" id="categories-container">
+          <!-- Dynamically populated category buttons -->
+        </div>
+        
+        <div class="sort-bar">
+          <select id="sort-select">
+            <option value="default" disabled selected>Sort products...</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="rating-desc">Rating: Best First</option>
+            <option value="name-asc">Name: A to Z</option>
+          </select>
+          
+          <button class="clear-filters-btn" id="clear-filters-btn">
+            <i class="fa-solid fa-filter-circle-xmark"></i>
+            Clear All Filters
+          </button>
+        </div>
+      </section>
+
+      <!-- Dynamic Product Count -->
+      <div class="product-count" id="product-count-display">
+        Showing <span>0</span> products
+      </div>
+
+      <!-- Product Grid / Skeleton Container -->
+      <div class="product-grid" id="product-grid-container">
+        <!-- Products or skeletons will be injected here -->
+      </div>
+
+      <!-- Load More Button -->
+      <div class="load-more-wrapper">
+        <button class="load-more-btn hidden" id="load-more-btn">
+          <i class="fa-solid fa-circle-chevron-down"></i>
+          Load More Products
+        </button>
+      </div>
+    </div>
+
+    <!-- WISHLIST PAGE CONTENT -->
+    <div id="wishlist-view" class="hidden">
+      <div class="section-title">
+        <i class="fa-solid fa-heart"></i>
+        <h2>My Wishlist</h2>
+      </div>
+      <div class="product-grid" id="wishlist-grid-container">
+        <!-- Wishlist items will be rendered here -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- CART SIDEBAR / DRAWER -->
+  <div class="cart-overlay" id="cart-drawer-overlay"></div>
+  <aside class="cart-drawer" id="cart-drawer">
+    <div class="cart-header">
+      <h2>
+        <i class="fa-solid fa-cart-shopping"></i>
+        Your Cart
+      </h2>
+      <button class="cart-close" id="cart-close-btn" aria-label="Close Cart">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    
+    <!-- Cart Items Area -->
+    <div class="cart-items" id="cart-items-container">
+      <!-- Injected cart items or empty state -->
+    </div>
+    
+    <!-- Cart Footer (Calculations & Checkout) -->
+    <div class="cart-footer hidden" id="cart-drawer-footer">
+      <div class="cart-subtotal">
+        <span>Subtotal:</span>
+        <span id="cart-subtotal-display">$0.00</span>
+      </div>
+      <button class="checkout-btn" id="checkout-btn">
+        <i class="fa-solid fa-credit-card"></i>
+        Proceed to Checkout
+      </button>
+    </div>
+  </aside>
+
+  <!-- PRODUCT DETAIL MODAL -->
+  <div class="modal-overlay" id="product-modal-overlay">
+    <div class="modal" id="product-modal">
+      <button class="modal-close" id="product-modal-close-btn" aria-label="Close Detail Modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="modal-content" id="product-modal-content">
+        <!-- Product details rendered here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER CONFIRMATION MODAL -->
+  <div class="modal-overlay" id="checkout-modal-overlay">
+    <div class="modal" id="checkout-modal">
+      <button class="modal-close" id="checkout-modal-close-btn" aria-label="Close Checkout Modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="modal-content">
+        <div class="order-summary" id="checkout-summary-container">
+          <!-- Order details rendered here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT COMPARISON MODAL -->
+  <div class="modal-overlay" id="compare-modal-overlay">
+    <div class="modal modal-wide" id="compare-modal">
+      <button class="modal-close" id="compare-modal-close-btn" aria-label="Close Comparison Modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="modal-content">
+        <h3 class="compare-title">Product Comparison</h3>
+        <div class="compare-grid" id="compare-grid-container">
+          <!-- Compare items injected side-by-side -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING COMPARE BAR -->
+  <div class="compare-bar hidden" id="compare-floating-bar">
+    <span><strong id="compare-count-badge">0</strong> selected to compare</span>
+    <button class="compare-btn" id="compare-trigger-btn" disabled>Compare</button>
+    <button class="compare-clear-btn" id="compare-clear-btn" aria-label="Clear Comparisons">
+      <i class="fa-solid fa-trash-can"></i>
+    </button>
+  </div>
+
+  <!-- CUSTOM NOTIFICATIONS TOAST CONTAINER -->
+  <div class="notification-container" id="toast-container"></div>
+
+</body>
+</html>
